@@ -1,0 +1,78 @@
+//The goal of this program is to change the value of the angle into the value of Voltage.
+#include <Servo.h> 
+
+  
+
+Servo myservo;  // create servo object to control a servo 
+
+  
+
+int potpin = A0;  // analog pin used to connect the potentiometer 
+
+int val;    // variable to read the value from the analog pin 
+
+  
+
+void setup() { 
+
+  myservo.attach(9);  // attaches the servo on pin 9 to the servo object 
+
+  Serial.begin(9600); 
+
+} 
+
+  
+
+void loop() { 
+
+  val = analogRead(potpin);            // reads the value of the potentiometer (value between 0 and 1023) 
+
+  int angle = map(val, 0, 1023, 0, 180);     // scale it for use with the servo (value between 0 and 180) 
+
+// int value = map (val,0,1023,0,180); 
+
+  int volt = map (val,0,1023,0,500); 
+
+  float voltage = volt/100.0;       
+
+  Serial.print("val = "); 
+
+  Serial.print(val); 
+
+  Serial.print("\t"); 
+
+  //Serial.print angle = 
+
+  Serial.print("angle = "); 
+
+  Serial.print(angle); 
+
+  Serial.print("\t"); 
+
+  /* 
+
+  Serial.print("volt = "); 
+
+  Serial.print(volt); 
+
+  Serial.print("\t"); 
+
+*/ 
+//Serial.print voltage =
+  Serial.print("voltage = "); 
+
+  Serial.println(voltage); 
+
+   
+
+   
+
+                           
+
+   
+
+  myservo.write(angle);                  // sets the servo position according to the scaled value 
+
+  delay(15);                           // waits for the servo to get there 
+
+} 
